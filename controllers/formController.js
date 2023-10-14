@@ -61,6 +61,7 @@ export const createForm = asyncHandler(async (req, res) => {
 
 export const getAllFormsForCompany = asyncHandler(async (req, res) => {
     const {employer_id} = req.query;
+    
     const [rows] = await pool.query(`
     SELECT *
     FROM form
