@@ -28,6 +28,7 @@ export const createEmployee = asyncHandler(async (req, res) => {
 })
 
 export const getAllEmployees = asyncHandler(async (req, res) => {
+    console.log("WORKING WORKING")
     const [rows] = await pool.query(`
     SELECT *
     FROM employee
