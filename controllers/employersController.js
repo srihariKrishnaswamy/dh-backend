@@ -42,12 +42,11 @@ export const updateFormFreq = asyncHandler(async (req, res) => {
     SET form_freq = ?
     WHERE employer_id = ?
     `, [form_freq, employer_id])
-    const id = rows.insertId
     const [emper] = await pool.query(`
     SELECT *
     FROM employer
     WHERE employer_id = ?
-    `, [id])
+    `, [employer_id])
     res.status(200).json(emper[0])
 })
 
