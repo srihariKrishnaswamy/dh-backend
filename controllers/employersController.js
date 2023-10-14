@@ -51,8 +51,8 @@ export const updateFormFreq = asyncHandler(async (req, res) => {
 })
 
 
-export const getAllEmployees = asyncHandler(async (req, res) => {
-    const {employer_id} = req.body
+export const getAllEmployeesInComp = asyncHandler(async (req, res) => {
+    const {employer_id} = req.query;
     const [rows] = await pool.query(`
     SELECT *
     FROM employee
