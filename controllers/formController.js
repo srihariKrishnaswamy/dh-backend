@@ -60,6 +60,7 @@ export const createForm = asyncHandler(async (req, res) => {
 })
 
 export const getAllForms = asyncHandler(async (req, res) => {
+    console.log("getting all forms")
     const [rows] = await pool.query(`
     SELECT *
     FROM form
