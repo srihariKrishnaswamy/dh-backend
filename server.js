@@ -27,4 +27,4 @@ user: "b20faf36a67e9d"
 password: "08436b24"
 host: "us-cdbr-east-06.cleardb.net"
 database: "heroku_6d605fac4ae93ca"
-*/
+*/ 
