@@ -15,15 +15,16 @@ export const createEmployee = asyncHandler(async (req, res) => {
     const {full_name, passcode, email, gender, job_title, years_with_comp} = req.body
     // missing employer_id
     const [result] = await pool.query(`
-    INSERT INTO employee (full_name, passcode, email, gender, job_title, years_with_comp)
-    VALUES (?, ?, ?, ?, ?, ?)
-    `, [full_name, passcode, email, gender, job_title, years_with_comp])
+    INSERT INTO employee (full_name, passcode, email, gender, job_title, years_with_comp, employer_id)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
+    `, [full_name, passcode, email, gender, job_title, years_with_comp, employer_id])
     const id = result.insertId
     const [rows] = await pool.query(`
     SELECT *
     FROM employee
     WHERE employee_id = ?
     `, [id])
+
     res.status(200).json(rows[0])
 })
 
@@ -34,4 +35,16 @@ export const getAllEmployees = asyncHandler(async (req, res) => {
     FROM employee
     `, [])
     res.status(200).json(rows)
+})
+
+export const getEmployeeByID = asyncHandler(async (req, res) => {
+    const {employee_id} = req.params;
+    const [rows] = await pool.query('SELECT * FROM employee WHERE employee_id = ?', [employee_id])
+    res.status(200).json(rows[0])
+})
+
+export const getEmployeeByEmail = asyncHandler(async (req, res) => {
+    const {email} = req.query;
+    const [rows] = await pool.query('SELECT * FROM employee WHERE email = ?', [email])
+    res.status(200).json(rows[0])
 })
