@@ -66,3 +66,19 @@ export const getAllForms = asyncHandler(async (req, res) => {
     `, [])
     res.status(200).json(rows)
 })
+
+export const getAllQuestions = asyncHandler(async (req, res) => {
+    const [rows] = await pool.query(`
+    SELECT *
+    FROM question
+    `, [])
+    res.status(200).json(rows)
+})
+
+export const getAllResponses = asyncHandler(async (req, res) => {
+    const [rows] = await pool.query(`
+    SELECT *
+    FROM response
+    `, [])
+    res.status(200).json(rows)
+})
