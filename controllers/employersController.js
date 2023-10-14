@@ -43,21 +43,21 @@ export const updateFormFreq = asyncHandler(async (req, res) => {
     WHERE employer_id = ?
     `, [form_freq, employer_id])
     const id = result.insertId
-    const [res] = await pool.query(`
+    const [emper] = await pool.query(`
     SELECT *
     FROM employer
     WHERE employer_id = ?
     `, [id])
-    res.status(200).json(res[0])
+    res.status(200).json(emper[0])
 })
 
 // export const getAverages = asyncHandler(async (req, res) => {
 //     const {employer_id} = req.body;
 
-//     const [res] = await pool.query(`
+//     const [emper] = await pool.query(`
 //     SELECT *
 //     FROM employer
 //     WHERE employer_id = ?
 //     `, [id])
-//     res.status(200).json(res[0])
+//     res.status(200).json(emper[0])
 // })
