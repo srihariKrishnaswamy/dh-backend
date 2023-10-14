@@ -1,5 +1,5 @@
 import express from 'express';
-import  { createEmployer, getAllEmployers } from '../controllers/employersController.js';
+import  { updateFormFreq, createEmployer, getAllEmployers } from '../controllers/employersController.js';
 
 const router = express.Router();
 
@@ -9,4 +9,7 @@ router.route('/')
 router.route('/all')
     .get(getAllEmployers)
 
+router.route('/formfreq')
+    .patch(updateFormFreq)
+    
 export default router;   

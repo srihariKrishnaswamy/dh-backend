@@ -26,10 +26,38 @@ export const createEmployer = asyncHandler(async (req, res) => {
 })
 
 export const getAllEmployers = asyncHandler(async (req, res) => {
-    console.log("WORKING WORKING")
     const [rows] = await pool.query(`
     SELECT *
     FROM employer
     `, [])
     res.status(200).json(rows)
 })
+
+// no patch route for categories as of now
+
+export const updateFormFreq = asyncHandler(async (req, res) => {
+    const {employer_id, form_freq} = req.body
+    const [rows] = await pool.query(`
+    UPDATE employer
+    SET form_freq = ?
+    WHERE employer_id = ?
+    `, [form_freq, employer_id])
+    const id = result.insertId
+    const [res] = await pool.query(`
+    SELECT *
+    FROM employer
+    WHERE employer_id = ?
+    `, [id])
+    res.status(200).json(res[0])
+})
+
+// export const getAverages = asyncHandler(async (req, res) => {
+//     const {employer_id} = req.body;
+
+//     const [res] = await pool.query(`
+//     SELECT *
+//     FROM employer
+//     WHERE employer_id = ?
+//     `, [id])
+//     res.status(200).json(res[0])
+// })
