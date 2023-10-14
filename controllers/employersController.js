@@ -9,7 +9,7 @@ const pool = mysql.createPool({
     password: "08436b24",
     database: "heroku_6d605fac4ae93ca"
 }).promise()
-
+ 
 export const createEmployer = asyncHandler(async (req, res) => {
     const {employer_name, passcode, email, size, industry, categories, form_freq} = req.body
     const [result] = await pool.query(`
