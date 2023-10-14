@@ -50,6 +50,18 @@ export const updateFormFreq = asyncHandler(async (req, res) => {
     res.status(200).json(emper[0])
 })
 
+
+export const getAllEmployees = asyncHandler(async (req, res) => {
+    const {employer_id} = req.body
+    const [rows] = await pool.query(`
+    SELECT *
+    FROM employee
+    WHERE employer_id = ?
+    `, [employer_id])
+    res.status(200).json(rows)
+})
+
+
 // export const getAverages = asyncHandler(async (req, res) => {
 
 
