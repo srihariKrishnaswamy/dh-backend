@@ -64,8 +64,8 @@ export const updateEmployeePassword = asyncHandler(async (req, res) => {
 })
 
 export const updateEmployeeCompanyFields = asyncHandler(async (req, res) => {
-    const {employee_id, date_joined, job_title} = req.body;
-    await pool.query('UPDATE employee SET date_joined = ?, job_title = ? WHERE employee_id = ?', [date_joined, job_title, employee_id])
+    const {employee_id, date_joined, job_title, employer_id} = req.body;
+    await pool.query('UPDATE employee SET date_joined = ?, job_title = ? employer_id = ? WHERE employee_id = ?', [date_joined, job_title, employer_id, employee_id])
     const [rows] = await pool.query('SELECT * FROM employee WHERE employee_id = ?', [employee_id])
     res.status(200).json(rows[0])
 })
