@@ -16,7 +16,7 @@ app.use((err, req, res, next) => {
 })
 
 app.use('/employee', employeeRoutes)
-app.use('/employer', employerRoutes)
+// app.use('/employer', employerRoutes)
  
 app.listen(process.env.PORT || PORT, () => {
     console.log(`The server is running on port ${process.env.PORT}`)
