@@ -14,7 +14,7 @@ export const createEmployer = asyncHandler(async (req, res) => {
     const {employer_name, passcode, email, size, industry, categories, form_freq} = req.body
     const [result] = await pool.query(`
     INSERT INTO employer (employer_name, passcode, email, size, industry, categories, form_freq)
-    VALUES (?, ?, ?, ?, ?, ?)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
     `, [employer_name, passcode, email, size, industry, categories, form_freq])
     const id = result.insertId
     const [rows] = await pool.query(`
