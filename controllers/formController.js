@@ -59,6 +59,37 @@ export const createForm = asyncHandler(async (req, res) => {
     res.status(200).json(rows[0])
 })
 
+export const getAllFormsForCompany = asyncHandler(async (req, res) => {
+    const {employer_id} = req.query;
+    const [rows] = await pool.query(`
+    SELECT *
+    FROM form
+    WHERE employer_id = ?
+    `, [employer_id])
+    res.status(200).json(rows)
+})
+
+export const getFormByID = asyncHandler(async (req, res) => {
+    const {form_id} = req.query;
+    const [rows] = await pool.query(`
+    SELECT *
+    FROM form
+    WHERE form_id = ?
+    `, [form_id])
+    res.status(200).json(rows[0])
+})
+
+export const getAllQuestionsForOneForm = asyncHandler(async (req, res) => {
+    const {form_id} = req.query;
+    const [rows] = await pool.query(`
+    SELECT *
+    FROM question
+    WHERE form_id = ?
+    `, [form_id])
+    res.status(200).json(rows)
+})
+
+
 export const getAllForms = asyncHandler(async (req, res) => {
     console.log("getting all forms")
     const [rows] = await pool.query(`
