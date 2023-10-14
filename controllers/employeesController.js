@@ -48,3 +48,24 @@ export const getEmployeeByEmail = asyncHandler(async (req, res) => {
     const [rows] = await pool.query('SELECT * FROM employee WHERE email = ?', [email])
     res.status(200).json(rows[0])
 })
+
+export const updateEmployeeInfo = asyncHandler(async (req, res) => {
+    const {employee_id, gender, job_title} = req.body;
+    await pool.query('UPDATE employee SET gender = ?, job_title = ? WHERE employee_id = ?', [gender, job_title, employee_id])
+    const [rows] = await pool.query('SELECT * FROM employee WHERE employee_id = ?', [employee_id])
+    res.status(200).json(rows[0])
+})
+
+export const updateEmployeePassword = asyncHandler(async (req, res) => {
+    const {employee_id, password} = req.body;
+    await pool.query('UPDATE employee SET passcode = ? WHERE employee_id = ?', [password, employee_id])
+    const [rows] = await pool.query('SELECT * FROM employee WHERE employee_id = ?', [employee_id])
+    res.status(200).json(rows[0])
+})
+
+export const updateEmployeeCompanyFields = asyncHandler(async (req, res) => {
+    const {employee_id, date_joined, job_title} = req.body;
+    await pool.query('UPDATE employee SET date_joined = ?, job_title = ? WHERE employee_id = ?', [date_joined, job_title, employee_id])
+    const [rows] = await pool.query('SELECT * FROM employee WHERE employee_id = ?', [employee_id])
+    res.status(200).json(rows[0])
+})
