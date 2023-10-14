@@ -9,4 +9,4 @@ router.route('/')
 router.route('/all')
     .get(getAllEmployees)
 
-export default router;
+export default router;  
