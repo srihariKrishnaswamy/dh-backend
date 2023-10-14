@@ -46,7 +46,7 @@ export const createForm = asyncHandler(async (req, res) => {
                 await pool.query(`
                 INSERT INTO question (average, text, category, num_responses, form_id)
                 VALUES (0, ?, ?, 0, ?)
-                `, [questions[catsList[i]][j]], catsList[i], id)
+                `, [questions[catsList[i]][j], catsList[i], id])
             }
         }
     }
