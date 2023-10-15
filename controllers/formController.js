@@ -299,6 +299,7 @@ export const getCatAverages = asyncHandler(async (req, res) => {
 export const getEmployerAverages = asyncHandler(async (req, res) => {
     const { employer_id } = req.body;
     const [result] = await pool.query('SELECT form_id FROM form WHERE employer_id = ?', [employer_id])
+    console.log(result)
     var allTotals = [];
     for(var id of result) {
         const totals = await getAvgs(id);
