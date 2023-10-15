@@ -175,7 +175,7 @@ export const submitForm = asyncHandler(async (req, res) => {
 });
 
 export const findIfEmployeeFilledForm = asyncHandler(async (req, res) => {
-  const { employee_id, form_id } = req.body;
+  const { employee_id, form_id } = req.query;
   const [qIDs] = await pool.query(`
     SELECT question_id FROM question WHERE form_id = ?
   `, [form_id])
