@@ -1,5 +1,5 @@
 import express from 'express';
-import  {getCatAverages, findIfEmployeeFilledForm, submitForm, getAllQuestionsForOneForm, getAllFormsForCompany, getFormByID, createForm, getAllForms, getAllQuestions, getAllResponses, updateTitle, updateDescription, updateCurrentDate } from '../controllers/formController.js';
+import  {getEmployerAverages, getCatAverages, findIfEmployeeFilledForm, submitForm, getAllQuestionsForOneForm, getAllFormsForCompany, getFormByID, createForm, getAllForms, getAllQuestions, getAllResponses, updateTitle, updateDescription, updateCurrentDate } from '../controllers/formController.js';
 
 const router = express.Router();
 
@@ -39,5 +39,8 @@ router.route('/filled')
 
 router.route('/averages')
     .get(getCatAverages)
+
+router.route('/empaverages')
+    .get(getEmployerAverages)
 
 export default router;
