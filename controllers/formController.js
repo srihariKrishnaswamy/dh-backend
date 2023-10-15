@@ -302,6 +302,7 @@ export const getEmployerAverages = asyncHandler(async (req, res) => {
     console.log(result)
     var allTotals = [];
     for(var id of result) {
+        id = id['form_id']
         const totals = await getAvgs(id);
         allTotals.push(totals)
     }
