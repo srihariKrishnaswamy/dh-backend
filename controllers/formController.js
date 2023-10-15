@@ -61,7 +61,7 @@ export const createForm = asyncHandler(async (req, res) => {
             `,
       [questions[i].text, questions[i].category, id]
     );
-  }
+  } 
   // create questions with that result.insertId
   const [rows] = await pool.query(
     `
