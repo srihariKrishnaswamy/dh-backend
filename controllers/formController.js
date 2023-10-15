@@ -151,15 +151,16 @@ export const getAllResponses = asyncHandler(async (req, res) => {
 });
 
 export const submitForm = asyncHandler(async (req, res) => {
-  const { employee_id, form_id, answers } = req.body;
+  const { employee_id, answers } = req.body; // no form_id needed, kinda sketch
   // answers = {question_id: number, question_id: number}
   for (let key of Object.keys(answers)) {
+    var keyInt = parseInt(key)
     await pool.query(
       `
             INSERT INTO response (answer, question_id, employee_id)
             VALUES (?, ?, ?)
         `,
-      [answers[key], key, employee_id]
+      [answers[key], keyInt, employee_id]
     );
     await pool.query(
       `
@@ -167,10 +168,10 @@ export const submitForm = asyncHandler(async (req, res) => {
         SET num_responses = num_responses + 1
         WHERE question_id = ?
     `,
-      [key]
+      [keyInt]
     );
   }
-  res.status(200).json(rows);
+  res.status(200).json({message: "Form filled!"});
 });
 
 export const findIfEmployeeFilledForm = asyncHandler(async (req, res) => {
