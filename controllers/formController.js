@@ -183,7 +183,7 @@ export const findIfEmployeeFilledForm = asyncHandler(async (req, res) => {
   for (var qID of qIDs) {
     console.log(qID);
     console.log(employee_id);
-    qID = parseInt(qID);
+    qID = qID['question_id'];
     const [found] = await pool.query(`
     SELECT * FROM response WHERE question_id = ? AND employee_id = ?
     `, [qID, employee_id])
