@@ -154,15 +154,17 @@ export const submitForm = asyncHandler(async (req, res) => {
   // answers = {question_id: number, question_id: number}
   console.log(answers)
   console.log(employee_id)
-  for (let key of Object.keys(answers)) {
-    var keyInt = parseInt(key);
-    console.log(answers[key], keyInt, employee_id);
+  for (let obj of answers) {
+    var question_id = obj.question_id
+    var answer = obj.answer
+    
+    console.log(question_id, answer, employee_id);
     await pool.query(
       `
             INSERT INTO response (answer, question_id, employee_id)
             VALUES (?, ?, ?)
         `,
-      [answers[key], keyInt, employee_id]
+      [question_id, answer, employee_id]
     );
     await pool.query(
       `
@@ -170,7 +172,7 @@ export const submitForm = asyncHandler(async (req, res) => {
         SET num_responses = num_responses + 1
         WHERE question_id = ?
     `,
-      [keyInt]
+      [question_id]
     );
   }
   res.status(200).json({ message: "Form filled!" });
