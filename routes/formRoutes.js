@@ -33,4 +33,4 @@ router.route('/updatecurrentdate')
 
 router.route('/submit')
     .post(submitForm)
-export default router;   
+export default router;
