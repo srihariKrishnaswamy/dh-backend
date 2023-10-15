@@ -151,12 +151,12 @@ export const getAllResponses = asyncHandler(async (req, res) => {
 
 export const submitForm = asyncHandler(async (req, res) => {
   const { employee_id, answers } = req.body; // no form_id needed, kinda sketch
-  // answers = {question_id: number, question_id: number}
+  // answers = [question_id: number, question_id: number]
   console.log(answers)
   console.log(employee_id)
   for (let obj of answers) {
-    var question_id = obj.question_id
-    var answer = obj.answer
+    var question_id = parseInt(obj.question_id)
+    var answer = parseInt(obj.answer)
     
     console.log(question_id, answer, employee_id);
     await pool.query(
@@ -164,7 +164,7 @@ export const submitForm = asyncHandler(async (req, res) => {
             INSERT INTO response (answer, question_id, employee_id)
             VALUES (?, ?, ?)
         `,
-      [question_id, answer, employee_id]
+      [answer, question_id, employee_id]
     );
     await pool.query(
       `
