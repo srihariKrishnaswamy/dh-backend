@@ -41,9 +41,10 @@ const parseCats = (categories) => {
 };
 
 export const createForm = asyncHandler(async (req, res) => {
-  const { title, curr_date, form_description, employer_id, categories } =
+  const { title, curr_date, form_description, employer_id, questions } =
     req.body;
-  const catsList = parseCats(categories);
+
+  // questions = [{category: "wlb", text:"hows tour wlb"}, ]
   const [result] = await pool.query(
     `
     INSERT INTO form (title, curr_date, form_description, employer_id)
@@ -52,18 +53,14 @@ export const createForm = asyncHandler(async (req, res) => {
     [title, curr_date, form_description, employer_id]
   );
   const id = result.insertId;
-  for (let i = 0; i < catsList.length; i++) {
-    if (questions.hasOwnProperty(catsList[i])) {
-      for (let j = 0; j < questions[catsList[i]].length; j++) {
-        await pool.query(
-          `
-                INSERT INTO question (average, text, category, num_responses, form_id)
-                VALUES (0, ?, ?, 0, ?)
-                `,
-          [questions[catsList[i]][j], catsList[i], id]
-        );
-      }
-    }
+  for (let i = 0; i < questions.length; i++) {
+    await pool.query(
+      `
+            INSERT INTO question (average, text, category, num_responses, form_id)
+            VALUES (0, ?, ?, 0, ?)
+            `,
+      [questions[i].text, questions[i].category, id]
+    );
   }
   // create questions with that result.insertId
   const [rows] = await pool.query(
@@ -246,9 +243,12 @@ const getAvgs = async (form_id) => {
     [form_id]
   );
 
-  const [form] = await pool.query(`
+  const [form] = await pool.query(
+    `
     SELECT * FROM form WHERE form_id = ?
-  `, [form_id])
+  `,
+    [form_id]
+  );
 
   var totals = {
     // total score for each category
@@ -258,7 +258,7 @@ const getAvgs = async (form_id) => {
     overall: 0,
     form_id: form_id,
     title: form[0].title,
-    curr_date: form[0].curr_date
+    curr_date: form[0].curr_date,
   };
   var numRes = {
     // total # responses for each category
@@ -297,14 +297,17 @@ export const getCatAverages = asyncHandler(async (req, res) => {
 });
 
 export const getEmployerAverages = asyncHandler(async (req, res) => {
-    const { employer_id } = req.body;
-    const [result] = await pool.query('SELECT form_id FROM form WHERE employer_id = ?', [employer_id])
-    console.log(result)
-    var allTotals = [];
-    for(var id of result) {
-        id = id['form_id']
-        const totals = await getAvgs(id);
-        allTotals.push(totals)
-    }
-    res.status(200).json(allTotals);
-  });
+  const { employer_id } = req.body;
+  const [result] = await pool.query(
+    "SELECT form_id FROM form WHERE employer_id = ?",
+    [employer_id]
+  );
+  console.log(result);
+  var allTotals = [];
+  for (var id of result) {
+    id = id["form_id"];
+    const totals = await getAvgs(id);
+    allTotals.push(totals);
+  }
+  res.status(200).json(allTotals);
+});
