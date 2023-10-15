@@ -12,7 +12,7 @@ const pool = mysql.createPool({
 }).promise()
 
 export const createEmployee = asyncHandler(async (req, res) => {
-    const {full_name, passcode, email, gender, job_title, years_with_comp} = req.body
+    const {full_name, passcode, email, gender, job_title, years_with_comp, employer_id} = req.body
     // missing employer_id
     const [result] = await pool.query(`
     INSERT INTO employee (full_name, passcode, email, gender, job_title, years_with_comp, employer_id)
