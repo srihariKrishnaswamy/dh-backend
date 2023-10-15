@@ -6,6 +6,7 @@ import employeeRoutes from './routes/employeeRoutes.js'
 import employerRoutes from './routes/employerRoutes.js'
 import formRoutes from './routes/formRoutes.js'
 import authRoutes from './routes/authRoutes.js'
+import corsOptions from './config/corsOptions.js'
 
 dotenv.config()
 const PORT = 8080
@@ -13,7 +14,8 @@ const PORT = 8080
 const app = express()
 app.use(express.json())
 app.use(cookieParser()) 
- 
+app.use(cors(corsOptions))
+
 app.use((err, req, res, next) => {
     console.error(err.stack);
     res.status(500).send("Something broke!")
