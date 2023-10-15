@@ -33,6 +33,16 @@ export const getAllEmployers = asyncHandler(async (req, res) => {
     res.status(200).json(rows)
 })
 
+export const getSignularEmployer = asyncHandler(async (req, res) => {
+    const {email} = req.query;
+    const [rows] = await pool.query(`
+    SELECT *
+    FROM employer
+    WHERE email = ?
+    `, [email])
+    res.status(200).json(rows[0])
+})
+
 // no patch route for categories as of now
 
 export const updateFormFreq = asyncHandler(async (req, res) => {

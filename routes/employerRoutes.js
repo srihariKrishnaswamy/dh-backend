@@ -1,10 +1,11 @@
 import express from 'express';
-import  { getAllEmployeesInComp, updateFormFreq, createEmployer, getAllEmployers } from '../controllers/employersController.js';
+import  { getSignularEmployer, getAllEmployeesInComp, updateFormFreq, createEmployer, getAllEmployers } from '../controllers/employersController.js';
 
 const router = express.Router();
 
 router.route('/')
     .post(createEmployer)
+    .get(getSignularEmployer)
 
 router.route('/all')
     .get(getAllEmployers)
