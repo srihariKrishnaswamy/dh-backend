@@ -245,10 +245,11 @@ export const getCatAverages = asyncHandler(async (req, res) => {
             numRes[currCat] += 1
         }
     }
+    console.log(totals)
+    console.log(numRes)
     const keys = Object.keys(numRes);
     for (const key of keys) {
         totals[key] /= parseFloat(numRes[key])
     }
-    console.log(totals);
     res.status(200).json(totals);
 })
