@@ -218,7 +218,7 @@ export const updateCurrentDate = asyncHandler(async (req, res) => {
 })
 
 export const getCatAverages = asyncHandler(async (req, res) => {
-    const {form_id, curr_date} = req.body;
+    const {form_id} = req.body;
     const [questions] = await pool.query(`
         SELECT * FROM question WHERE form_id = ?
     `, [form_id])
