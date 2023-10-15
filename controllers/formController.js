@@ -171,7 +171,7 @@ export const submitForm = asyncHandler(async (req, res) => {
       [keyInt]
     );
   }
-  res.status(200).json(rows);
+  res.status(200).json({message: "Form filled!"});
 });
 
 export const findIfEmployeeFilledForm = asyncHandler(async (req, res) => {
