@@ -1,11 +1,12 @@
 import express from 'express';
-import  { createEmployee, getAllEmployees, getEmployeeByID, getEmployeeByEmail, updateEmployeeInfo, updateEmployeePassword, updateEmployeeCompanyFields } from '../controllers/employeesController.js';
+import  { deleteEmployee, createEmployee, getAllEmployees, getEmployeeByID, getEmployeeByEmail, updateEmployeeInfo, updateEmployeePassword, updateEmployeeCompanyFields } from '../controllers/employeesController.js';
 
 const router = express.Router();
 
 router.route('/')
     .post(createEmployee)
     .get(getEmployeeByEmail)
+    .delete(deleteEmployee)
 
 router.route('/all')
     .get(getAllEmployees)
@@ -22,6 +23,7 @@ router.route('/password')
 
 router.route('/companyfields')
     .patch(updateEmployeeCompanyFields)
+
     
 
 
