@@ -43,7 +43,7 @@ const parseCats = (categories) => {
 export const createForm = asyncHandler(async (req, res) => {
   const { title, curr_date, form_description, employer_id, questions } =
     req.body;
-
+  
   // questions = [{category: "wlb", text:"hows tour wlb"}, ]
   const [result] = await pool.query(
     `
