@@ -13,7 +13,7 @@ const pool = mysql
   .promise();
 
 const questions = {
-  "work-life-balance": ["How do you rate the WLB at your job?"],
+  wlb: ["How do you rate the WLB at your job?"],
   transparency: [
     "How easily can you find out about projects outside of your scope?",
     "How transparent is your company?",

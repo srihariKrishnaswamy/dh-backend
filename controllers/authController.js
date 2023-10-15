@@ -1,4 +1,3 @@
-import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import asyncHandler from 'express-async-handler'
 import mysql from 'mysql2'
@@ -26,13 +25,13 @@ const login = asyncHandler(async (req, res) => {
         return res.status(400).json({message: 'All fields are required'})
     }
     const [getUNPW] = await pool.query(`
-    SELECT hashedPW FROM users WHERE email = ?
+    SELECT passcode FROM users WHERE email = ?
     `, [email])
     if (getUNPW.length === 0) {
         return res.status(400).json({message: 'Invalid email'})
     }
-    var correctPW = getUNPW[0]['hashedPW']
-    const match = await bcrypt.compare(password, correctPW)
+    var correctPW = getUNPW[0]['passcode']
+    const match = password === correctPW
     if (!match) return res.status(401).json({message: 'wrong password'})
     const accessToken = jwt.sign(
         {
