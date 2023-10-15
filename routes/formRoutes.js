@@ -23,13 +23,13 @@ router.route('/responses/all')
     .get(getAllResponses)
 
 router.route('/updatetitle')
-    .post(updateTitle)
+    .patch(updateTitle)
 
 router.route('/updatedescription')
-    .post(updateDescription)
+    .patch(updateDescription)
 
 router.route('/updatecurrentdate')
-    .post(updateCurrentDate)
+    .patch(updateCurrentDate)
 
 router.route('/submit')
     .post(submitForm)
