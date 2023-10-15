@@ -156,6 +156,7 @@ export const submitForm = asyncHandler(async (req, res) => {
   console.log(employee_id)
   for (let key of Object.keys(answers)) {
     var keyInt = parseInt(key);
+    console.log(answers[key], keyInt, employee_id);
     await pool.query(
       `
             INSERT INTO response (answer, question_id, employee_id)
