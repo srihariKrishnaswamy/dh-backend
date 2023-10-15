@@ -152,6 +152,8 @@ export const getAllResponses = asyncHandler(async (req, res) => {
 export const submitForm = asyncHandler(async (req, res) => {
   const { employee_id, answers } = req.body; // no form_id needed, kinda sketch
   // answers = {question_id: number, question_id: number}
+  console.log(answers)
+  console.log(employee_id)
   for (let key of Object.keys(answers)) {
     var keyInt = parseInt(key);
     await pool.query(

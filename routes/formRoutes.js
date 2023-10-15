@@ -47,3 +47,28 @@ router.route('/invite')
     .post(inviteEmployees)
 
 export default router;
+
+// {
+//     "question_id": 84,
+//     "average": "0",
+//     "text": "How do you feel about working at google?",
+//     "category": "culture",
+//     "num_responses": 0,
+//     "form_id": 34
+// },
+// {
+//     "question_id": 94,
+//     "average": "0",
+//     "text": "How transparent do you think google is?",
+//     "category": "transparency",
+//     "num_responses": 0,
+//     "form_id": 34
+// },
+// {
+//     "question_id": 104,
+//     "average": "0",
+//     "text": "What is wrong with you?",
+//     "category": "overall",
+//     "num_responses": 0,
+//     "form_id": 34
+// }
