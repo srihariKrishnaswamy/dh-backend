@@ -216,3 +216,39 @@ export const updateCurrentDate = asyncHandler(async (req, res) => {
     const [rows] = await pool.query('SELECT * FROM form WHERE form_id = ?', [form_id])
     res.status(200).json(rows[0])
 })
+
+export const getCatAverages = asyncHandler(async (req, res) => {
+    const {form_id, curr_date} = req.body;
+    const [questions] = await pool.query(`
+        SELECT * FROM question WHERE form_id = ?
+    `, [form_id])
+    var totals = { // total score for each category
+        wlb: 0,
+        transparency: 0,
+        culture: 0,
+        overall: 0,
+    }
+    var numRes = { // total # responses for each category
+        wlb: 0,
+        transparency: 0,
+        culture: 0,
+        overall: 0,
+    }
+    for (var question of questions) {
+        var currCat = question.category;
+        var qID = question.question_id;
+        const [responses] = await pool.query(`
+        SELECT * FROM response WHERE question_id = ?
+        `, [qID])
+        for (var response of responses) {
+            totals[currCat] += response.answer;
+            numRes[currCat] += 1
+        }
+    }
+    const keys = Object.keys(numRes);
+    for (const key of keys) {
+        totals[key] /= parseFloat(numRes[key])
+    }
+    console.log(totals);
+    res.status(200).json(totals);
+})
