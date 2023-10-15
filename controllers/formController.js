@@ -176,15 +176,19 @@ export const submitForm = asyncHandler(async (req, res) => {
 
 export const findIfEmployeeFilledForm = asyncHandler(async (req, res) => {
   const { employee_id, form_id } = req.body;
+  const [qIDs] = await pool.query(`
+    SELECT question_id FROM question WHERE form_id = ?
+  `, [form_id])
 
-  const [rows] = await pool.query(
-    `
-    SELECT *
-    FROM response
-    `,
-    []
-  );
-  res.status(200).json(rows);
+  for (qID in qIDs) {
+    const [found] = await pool.query(`
+    SELECT * FROM response WHERE question_id = ?, employee_id = ?
+    `, [qID, employee_id])
+    if (found.length > 0) {
+        res.status(200).json({found: true});
+    }
+  }
+  res.status(200).json({found: false});
 });
 
 export const updateTitle = asyncHandler(async (req, res) => {
