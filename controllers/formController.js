@@ -175,14 +175,14 @@ export const submitForm = asyncHandler(async (req, res) => {
 });
 
 export const findIfEmployeeFilledForm = asyncHandler(async (req, res) => {
-  const { employee_id, form_id } = req.query;
+  var { employee_id, form_id } = req.query;
   const [qIDs] = await pool.query(`
     SELECT question_id FROM question WHERE form_id = ?
   `, [form_id])
 
-  for (const qID of qIDs) {
+  for (var qID of qIDs) {
     const [found] = await pool.query(`
-    SELECT * FROM response WHERE question_id = ?, employee_id = ?
+    SELECT * FROM response WHERE question_id = ? AND employee_id = ?
     `, [qID, employee_id])
     if (found.length > 0) {
         res.status(200).json({found: true});
