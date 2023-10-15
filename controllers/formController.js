@@ -294,7 +294,7 @@ const getAvgs = async (form_id) => {
 
 export const getCatAverages = asyncHandler(async (req, res) => {
   const { form_id } = req.query;
-  const totals = await getAvgs(form_id);
+  const totals = await getAvgs(parseInt(form_id));
   res.status(200).json(totals);
 });
 
@@ -308,7 +308,7 @@ export const getEmployerAverages = asyncHandler(async (req, res) => {
   var allTotals = [];
   for (var id of result) {
     id = id["form_id"];
-    const totals = await getAvgs(id);
+    const totals = await getAvgs(parseInt(id));
     allTotals.push(totals);
   }
   res.status(200).json(allTotals);
