@@ -25,7 +25,7 @@ const login = asyncHandler(async (req, res) => {
         return res.status(400).json({message: 'All fields are required'})
     }
     const [getUNPW] = await pool.query(`
-    SELECT passcode FROM employee WHERE email = ?
+    SELECT passcode FROM employer WHERE email = ?
     `, [email])
     if (getUNPW.length === 0) {
         return res.status(400).json({message: 'Invalid email'})
@@ -84,7 +84,7 @@ const refresh = asyncHandler(async (req, res) => {
         }
     );
     const [verifyEmail] = await pool.query(`
-    SELECT email FROM employee WHERE email = ?
+    SELECT email FROM employer WHERE email = ?
     `, [email])
     console.log(verifyEmail)
     if (verifyEmail.length === 0) return res.status(402).json({message: "Invalid token email"})
