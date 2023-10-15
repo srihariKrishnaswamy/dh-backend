@@ -1,5 +1,5 @@
 import express from 'express';
-import  { getAllQuestionsForOneForm, getAllFormsForCompany, getFormByID, createForm, getAllForms, getAllQuestions, getAllResponses } from '../controllers/formController.js';
+import  {submitForm, getAllQuestionsForOneForm, getAllFormsForCompany, getFormByID, createForm, getAllForms, getAllQuestions, getAllResponses, updateDescription, updateTitle, updateDescription, updateCurrentDate } from '../controllers/formController.js';
 
 const router = express.Router();
 
@@ -22,4 +22,15 @@ router.route('/employer')
 router.route('/responses/all')
     .get(getAllResponses)
 
+router.route('/updatetitle')
+    .post(updateTitle)
+
+router.route('/updatedescription')
+    .post(updateDescription)
+
+router.route('/updatecurrentdate')
+    .post(updateCurrentDate)
+
+router.route('/submit')
+    .post(submitForm)
 export default router;   
