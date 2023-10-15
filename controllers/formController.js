@@ -150,41 +150,41 @@ export const getAllResponses = asyncHandler(async (req, res) => {
   res.status(200).json(rows);
 });
 
-export const submitForm = asyncHandler(async (req, res) => {
-  const { employee_id, form_id, answers } = req.body;
-  // answers = {question_id: number, question_id: number}
-  for (let key of Object.keys(answers)) {
-    await pool.query(
-      `
-            INSERT INTO response (answer, question_id, employee_id)
-            VALUES (?, ?, ?)
-        `,
-      [answers[key], key, employee_id]
-    );
-    await pool.query(
-      `
-        UPDATE question 
-        SET num_responses = num_responses + 1
-        WHERE question_id = ?
-    `,
-      [key]
-    );
-  }
-  res.status(200).json(rows);
-});
+// export const submitForm = asyncHandler(async (req, res) => {
+//   const { employee_id, form_id, answers } = req.body;
+//   // answers = {question_id: number, question_id: number}
+//   for (let key of Object.keys(answers)) {
+//     await pool.query(
+//       `
+//             INSERT INTO response (answer, question_id, employee_id)
+//             VALUES (?, ?, ?)
+//         `,
+//       [answers[key], key, employee_id]
+//     );
+//     await pool.query(
+//       `
+//         UPDATE question 
+//         SET num_responses = num_responses + 1
+//         WHERE question_id = ?
+//     `,
+//       [key]
+//     );
+//   }
+//   res.status(200).json(rows);
+// });
 
-export const findIfEmployeeFilledForm = asyncHandler(async (req, res) => {
-  const { employee_id, form_id } = req.body;
+// export const findIfEmployeeFilledForm = asyncHandler(async (req, res) => {
+//   const { employee_id, form_id } = req.body;
 
-  const [rows] = await pool.query(
-    `
-    SELECT *
-    FROM response
-    `,
-    []
-  );
-  res.status(200).json(rows);
-});
+//   const [rows] = await pool.query(
+//     `
+//     SELECT *
+//     FROM response
+//     `,
+//     []
+//   );
+//   res.status(200).json(rows);
+// });
 
 export const updateTitle = asyncHandler(async (req, res) => {
     const {form_id, title} = req.body;
