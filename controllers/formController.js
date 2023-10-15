@@ -184,8 +184,10 @@ export const findIfEmployeeFilledForm = asyncHandler(async (req, res) => {
     const [found] = await pool.query(`
     SELECT * FROM response WHERE question_id = ? AND employee_id = ?
     `, [qID, employee_id])
+    console.log(found);
     if (found.length > 0) {
         res.status(200).json({found: true});
+        return;
     }
   }
   res.status(200).json({found: false});
