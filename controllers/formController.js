@@ -54,12 +54,14 @@ export const createForm = asyncHandler(async (req, res) => {
   );
   const id = result.insertId;
   for (let i = 0; i < questions.length; i++) {
+    var text = questions[i].question
+    var category = questions[i].questionCategory
     await pool.query(
       `
             INSERT INTO question (average, text, category, num_responses, form_id)
             VALUES (0, ?, ?, 0, ?)
             `,
-      [questions[i].text, questions[i].category, id]
+      [text, category, id]
     );
   } 
   // create questions with that result.insertId
