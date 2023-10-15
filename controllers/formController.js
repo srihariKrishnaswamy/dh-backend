@@ -313,3 +313,8 @@ export const getEmployerAverages = asyncHandler(async (req, res) => {
   }
   res.status(200).json(allTotals);
 });
+
+export const inviteEmployees = asyncHandler(async (req, res) => {
+  const { employer_id } = req.query;
+  res.status(200).json({message:""});
+});

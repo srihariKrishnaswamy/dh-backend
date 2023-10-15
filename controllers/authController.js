@@ -106,4 +106,6 @@ const logout = (req, res) => {
     res.json({message: 'Cookie cleared'}) // by default a 200 status msg
 }
 
+
+
 export default {logout, refresh, login}
