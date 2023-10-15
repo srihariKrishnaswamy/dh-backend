@@ -195,7 +195,7 @@ export const updateTitle = asyncHandler(async (req, res) => {
 
 export const updateDescription = asyncHandler(async (req, res) => {
     const {form_id, form_description} = req.body;
-    await pool.query('UPDATE form SET form_description = ? WHERE form_id = ?' [form_description, form_id])
+    await pool.query('UPDATE form SET form_description = ? WHERE form_id = ?', [form_description, form_id])
     const [rows] = await pool.query('SELECT * FROM form WHERE form_id = ?', [form_id])
     res.status(200).json(rows[0])
 })
