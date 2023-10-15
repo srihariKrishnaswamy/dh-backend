@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import employeeRoutes from './routes/employeeRoutes.js'
 import employerRoutes from './routes/employerRoutes.js'
 import formRoutes from './routes/formRoutes.js'
+import authRoutes from './routes/authRoutes.js'
 
 dotenv.config()
 const PORT = 8080
@@ -19,6 +20,7 @@ app.use((err, req, res, next) => {
 app.use('/employee', employeeRoutes)
 app.use('/employer', employerRoutes)
 app.use('/form', formRoutes)
+app.use('/auth', authRoutes)
  
 app.listen(process.env.PORT || PORT, () => {
     console.log(`The server is running on port ${process.env.PORT}`)
