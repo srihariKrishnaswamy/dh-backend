@@ -180,7 +180,7 @@ export const findIfEmployeeFilledForm = asyncHandler(async (req, res) => {
     SELECT question_id FROM question WHERE form_id = ?
   `, [form_id])
 
-  for (qID in qIDs) {
+  for (const qID of qIDs) {
     const [found] = await pool.query(`
     SELECT * FROM response WHERE question_id = ?, employee_id = ?
     `, [qID, employee_id])
