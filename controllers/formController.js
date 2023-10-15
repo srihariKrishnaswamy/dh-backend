@@ -114,3 +114,24 @@ export const getAllResponses = asyncHandler(async (req, res) => {
     `, [])
     res.status(200).json(rows)
 })
+
+export const updateTitle = asyncHandler(async (req, res) => {
+    const {form_id, title} = req.body;
+    await pool.query('UPDATE form SET title = ? WHERE form_id = ?', [title, form_id])
+    const [rows] = await pool.query('SELECT * FROM form WHERE form_id = ?', [form_id])
+    res.status(200).json(rows[0])
+})
+
+export const updateDescription = asyncHandler(async (req, res) => {
+    const {form_id, form_description} = req.body;
+    await pool.query('UPDATE form SET form_description = ? WHERE form_id = ?' [form_description, form_id])
+    const [rows] = await pool.query('SELECT * FROM form WHERE form_id = ?', [form_id])
+    res.status(200).json(rows[0])
+})
+
+export const updateCurrentDate = asyncHandler(async (req, res) => {
+    const {form_id, curr_date} = req.body;
+    await pool.query('UPDATE form SET curr_date = ? WHERE form_id = ?', [curr_date, form_id])
+    const [rows] = await pool.query('SELECT * FROM form WHERE form_id = ?', [form_id])
+    res.status(200).json(rows[0])
+})
